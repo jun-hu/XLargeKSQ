@@ -1,0 +1,1534 @@
+
+R version 3.4.0 (2017-04-21) -- "You Stupid Darkness"
+Copyright (C) 2017 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R은 자유 소프트웨어이며, 어떠한 형태의 보증없이 배포됩니다.
+또한, 일정한 조건하에서 이것을 재배포 할 수 있습니다.
+배포와 관련된 상세한 내용은 'license()' 또는 'licence()'을 통하여 확인할 수 있습니다.
+
+R은 많은 기여자들이 참여하는 공동프로젝트입니다.
+'contributors()'라고 입력하시면 이에 대한 더 많은 정보를 확인하실 수 있습니다.
+그리고, R 또는 R 패키지들을 출판물에 인용하는 방법에 대해서는 'citation()'을 통해 확인하시길 부탁드립니다.
+
+'demo()'를 입력하신다면 몇가지 데모를 보실 수 있으며, 'help()'를 입력하시면 온라인 도움말을 이용하실 수 있습니다.
+또한, 'help.start()'의 입력을 통하여 HTML 브라우저에 의한 도움말을 사용하실수 있습니다
+R의 종료를 원하시면 'q()'을 입력해주세요.
+
+> ---
++ title: 'Pallab Sarkar - KKBox Music Recommendation EDA'
+Error in -title : 단항연산자에 유효한 인자가 아닙니다
+> date: '`r Sys.Date()`'
+Error in date:"`r Sys.Date()`" : 인자의 값이 NA/NaN 입니다.
+추가정보: 경고메시지(들): 
+강제형변환에 의해 생성된 NA 입니다 
+> output:
++   html_document:
++     number_sections: true
+에러: 객체 'output'를 찾을 수 없습니다
+>     fig_caption: true
+에러: 객체 'fig_caption'를 찾을 수 없습니다
+>     toc: true
+에러: 객체 'toc'를 찾을 수 없습니다
+>     fig_width: 7
+에러: 객체 'fig_width'를 찾을 수 없습니다
+>     fig_height: 4.5
+에러: 객체 'fig_height'를 찾을 수 없습니다
+>     theme: cosmo
+에러: 객체 'theme'를 찾을 수 없습니다
+>     highlight: tango
+에러: 객체 'highlight'를 찾을 수 없습니다
+>     code_folding: hide
+에러: 객체 'code_folding'를 찾을 수 없습니다
+> ---
++ 
++ # Introduction
++ 
++ 
++ Hey everyone, this is my first EDA notebook.:)
+에러: 예상하지 못한 기호(symbol)입니다. in:
+"
+Hey everyone"
+> 
+> Also a very big thanks to [Heads or Tails](https://www.kaggle.com/headsortails), whose style of creating R based notebooks has been a big help. :)
+에러: 예상하지 못한 기호(symbol)입니다. in "Also a"
+> 
+> 
+> The initial Exploratory Data Analysis for the [KKBox's Music Recommendation Challenge](https://www.kaggle.com/c/kkbox-music-recommendation-challenge) 
+에러: 예상하지 못한 기호(symbol)입니다. in "The initial"
+> competition is created within the R environment of the [tidyverse](http://tidyverse.org/) and [ggplot2](http://ggplot2.tidyverse.org/). The aim of this challenge is 
+에러: 예상하지 못한 기호(symbol)입니다. in "competition is"
+> to predict the chances of a user listening to a song repetitively after the first observable listening event within a time window was triggered. 
+에러: 예상하지 못한 기호(symbol)입니다. in "to predict"
+> The [data](https://www.kaggle.com/c/kkbox-music-recommendation-challenge/data) comes in the traditional Kaggle form of one training and test file each
+에러: 예기치 않은 '/'입니다 in "The [data](https:/"
+> : `../input/train.csv` & `../input/test.csv`. Each row corresponds to a specific policy holder and the columns describe their features. 
+에러: 예기치 않은 ':'입니다 in ":"
+> The target variable is conveniently named *target* here.
+에러: 예상하지 못한 기호(symbol)입니다. in "The target"
+> 
+> 
+> # Preparations {.tabset .tabset-fade .tabset-pills}
+> 
+> ## Load libraries
+> 
+> We load a range of libraries for general data wrangling and general visualisation together with more specialised tools.
+에러: 예상하지 못한 기호(symbol)입니다. in "We load"
+> 
+> ```{r, message = FALSE}
+에러: 길이가 0인 변수명을 사용하려고 시도했습니다
+> # general visualisation
+> library('ggplot2') # visualisation
+Error in library("ggplot2") : ‘ggplot2’이라고 불리는 패키지가 없습니다
+> library('scales') # visualisation
+Error in library("scales") : ‘scales’이라고 불리는 패키지가 없습니다
+> library('grid') # visualisation
+> library('ggthemes') # visualisation
+Error in library("ggthemes") : 
+  ‘ggthemes’이라고 불리는 패키지가 없습니다
+> library('gridExtra') # visualisation
+Error in library("gridExtra") : 
+  ‘gridExtra’이라고 불리는 패키지가 없습니다
+> library('RColorBrewer') # visualisation
+Error in library("RColorBrewer") : 
+  ‘RColorBrewer’이라고 불리는 패키지가 없습니다
+> library('corrplot') # visualisation
+Error in library("corrplot") : 
+  ‘corrplot’이라고 불리는 패키지가 없습니다
+> library('ggpubr') # visualisation
+Error in library("ggpubr") : ‘ggpubr’이라고 불리는 패키지가 없습니다
+> 
+> # general data manipulation
+> library('dplyr') # data manipulation
+Error in library("dplyr") : ‘dplyr’이라고 불리는 패키지가 없습니다
+> library('readr') # input/output
+Error in library("readr") : ‘readr’이라고 불리는 패키지가 없습니다
+> library('data.table') # data manipulation
+Error in library("data.table") : 
+  ‘data.table’이라고 불리는 패키지가 없습니다
+> library('tibble') # data wrangling
+Error in library("tibble") : ‘tibble’이라고 불리는 패키지가 없습니다
+> library('tidyr') # data wrangling
+Error in library("tidyr") : ‘tidyr’이라고 불리는 패키지가 없습니다
+> library('stringr') # string manipulation
+Error in library("stringr") : ‘stringr’이라고 불리는 패키지가 없습니다
+> library('forcats') # factor manipulation
+Error in library("forcats") : ‘forcats’이라고 불리는 패키지가 없습니다
+> 
+> # specific visualisation
+> library('alluvial') # visualisation
+Error in library("alluvial") : 
+  ‘alluvial’이라고 불리는 패키지가 없습니다
+> library('ggfortify') # visualisation
+Error in library("ggfortify") : 
+  ‘ggfortify’이라고 불리는 패키지가 없습니다
+> library('ggrepel') # visualisation
+Error in library("ggrepel") : ‘ggrepel’이라고 불리는 패키지가 없습니다
+> library('ggridges') # visualisation
+Error in library("ggridges") : 
+  ‘ggridges’이라고 불리는 패키지가 없습니다
+> library('VIM') # NAs
+Error in library("VIM") : ‘VIM’이라고 불리는 패키지가 없습니다
+> library('plotly') # interactive
+Error in library("plotly") : ‘plotly’이라고 불리는 패키지가 없습니다
+> library('ggforce') # visualisation
+Error in library("ggforce") : ‘ggforce’이라고 불리는 패키지가 없습니다
+> ```
+에러: 길이가 0인 변수명을 사용하려고 시도했습니다
+> 
+> ## Helper functions
+> 
+> We use the *multiplot* function, courtesy of [R Cookbooks](http://www.cookbook-r.com/Graphs/Multiple_graphs_on_one_page_(ggplot2)/) to create multi-panel plots. We also make use of a brief helper function to compute binomial confidence intervals.
+에러: 예상하지 못한 기호(symbol)입니다. in "We use"
+> 
+> ```{r}
+에러: 길이가 0인 변수명을 사용하려고 시도했습니다
+> # Define multiple plot function
+> #
+> # ggplot objects can be passed in ..., or to plotlist (as a list of ggplot objects)
+> # - cols:   Number of columns in layout
+> # - layout: A matrix specifying the layout. If present, 'cols' is ignored.
+> #
+> # If the layout is something like matrix(c(1,2,3,3), nrow=2, byrow=TRUE),
+> # then plot 1 will go in the upper left, 2 will go in the upper right, and
+> # 3 will go all the way across the bottom.
+> #
+> multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
++ 
++   # Make a list from the ... arguments and plotlist
++   plots <- c(list(...), plotlist)
++ 
++   numPlots = length(plots)
++ 
++   # If layout is NULL, then use 'cols' to determine layout
++   if (is.null(layout)) {
++     # Make the panel
++     # ncol: Number of columns of plots
++     # nrow: Number of rows needed, calculated from # of cols
++     layout <- matrix(seq(1, cols * ceiling(numPlots/cols)),
++                     ncol = cols, nrow = ceiling(numPlots/cols))
++   }
++ 
++  if (numPlots==1) {
++     print(plots[[1]])
++ 
++   } else {
++     # Set up the page
++     grid.newpage()
++     pushViewport(viewport(layout = grid.layout(nrow(layout), ncol(layout))))
++ 
++     # Make each plot, in the correct location
++     for (i in 1:numPlots) {
++       # Get the i,j matrix positions of the regions that contain this subplot
++       matchidx <- as.data.frame(which(layout == i, arr.ind = TRUE))
++ 
++       print(plots[[i]], vp = viewport(layout.pos.row = matchidx$row,
++                                       layout.pos.col = matchidx$col))
++     }
++   }
++ }
+> ```
+에러: 길이가 0인 변수명을 사용하려고 시도했습니다
+> 
+> ```{r echo=FALSE}
+에러: 길이가 0인 변수명을 사용하려고 시도했습니다
+> # function to extract binomial confidence levels
+> get_binCI <- function(x,n) as.list(setNames(binom.test(x,n)$conf.int, c("lwr", "upr")))
+> ```
+에러: 길이가 0인 변수명을 사용하려고 시도했습니다
+> 
+> ## Load data
+> 
+> We use *data.table's* fread function to speed up reading in the data
+에러: 예상하지 못한 기호(symbol)입니다. in "We use"
+> 
+> ```{r warning=FALSE, results=FALSE}
+에러: 길이가 0인 변수명을 사용하려고 시도했습니다
+> train <- as.tibble(fread('../input/train.csv'))
+Error in as.tibble(fread("../input/train.csv")) : 
+  함수 "as.tibble"를 찾을 수 없습니다
+> test <- as.tibble(fread('../input/test.csv'))
+Error in as.tibble(fread("../input/test.csv")) : 
+  함수 "as.tibble"를 찾을 수 없습니다
+> songs<-as.tibble(fread('../input/songs.csv'))
+Error in as.tibble(fread("../input/songs.csv")) : 
+  함수 "as.tibble"를 찾을 수 없습니다
+> members<-as.tibble(fread('../input/members.csv'))
+Error in as.tibble(fread("../input/members.csv")) : 
+  함수 "as.tibble"를 찾을 수 없습니다
+> ```
+에러: 길이가 0인 변수명을 사용하려고 시도했습니다
+> 
+> # Overview: File structure and content {.tabset .tabset-fade .tabset-pills}
+> 
+> As a first step let's have an overview of the data sets using the *summary* and *glimpse* tools.
+에러: 예상하지 못한 기호(symbol)입니다. in "As a"
+> 
+> ## Training data
+> 
+> Summary of training data:
+에러: 예상하지 못한 기호(symbol)입니다. in "Summary of"
+> ```{r}
+에러: 길이가 0인 변수명을 사용하려고 시도했습니다
+> summary(train)
+Error in summary(train) : 객체 'train'를 찾을 수 없습니다
+> ```
+에러: 길이가 0인 변수명을 사용하려고 시도했습니다
+> A glimpse into the training data:
+에러: 예상하지 못한 기호(symbol)입니다. in "A glimpse"
+> ```{r}
+에러: 길이가 0인 변수명을 사용하려고 시도했습니다
+> glimpse(train)
+Error in glimpse(train) : 함수 "glimpse"를 찾을 수 없습니다
+> ```
+에러: 길이가 0인 변수명을 사용하려고 시도했습니다
+> Now let's look into different types of source system tabs:
+에러: 예상하지 못한 기호(symbol)입니다. in "Now let"
+> ```{r}
+에러: 길이가 0인 변수명을 사용하려고 시도했습니다
+> unique(train$source_system_tab)
+Error in unique(train$source_system_tab) : 
+  객체 'train'를 찾을 수 없습니다
+> ```
+에러: 길이가 0인 변수명을 사용하려고 시도했습니다
+> Now let's look into different types of source types:
+에러: 예상하지 못한 기호(symbol)입니다. in "Now let"
+> ```{r}
+에러: 길이가 0인 변수명을 사용하려고 시도했습니다
+> unique(train$source_type)
+Error in unique(train$source_type) : 객체 'train'를 찾을 수 없습니다
+> ```
+에러: 길이가 0인 변수명을 사용하려고 시도했습니다
+> 
+> ## Songs data
+> 
+> Summary of songs data:
+에러: 예상하지 못한 기호(symbol)입니다. in "Summary of"
+> ```{r}
+에러: 길이가 0인 변수명을 사용하려고 시도했습니다
+> summary(songs)
+Error in summary(songs) : 객체 'songs'를 찾을 수 없습니다
+> ```
+에러: 길이가 0인 변수명을 사용하려고 시도했습니다
+> A glimpse into the songs data:
+에러: 예상하지 못한 기호(symbol)입니다. in "A glimpse"
+> ```{r}
+에러: 길이가 0인 변수명을 사용하려고 시도했습니다
+> glimpse(songs)
+Error in glimpse(songs) : 함수 "glimpse"를 찾을 수 없습니다
+> ```
+에러: 길이가 0인 변수명을 사용하려고 시도했습니다
+> 
+> ## Members data
+> Summary of members data:
+에러: 예상하지 못한 기호(symbol)입니다. in "Summary of"
+> ```{r}
+에러: 길이가 0인 변수명을 사용하려고 시도했습니다
+> summary(members)
+Error in summary(members) : 객체 'members'를 찾을 수 없습니다
+> ```
+에러: 길이가 0인 변수명을 사용하려고 시도했습니다
+> A glimpse into the members data:
+에러: 예상하지 못한 기호(symbol)입니다. in "A glimpse"
+> ```{r}
+에러: 길이가 0인 변수명을 사용하려고 시도했습니다
+> glimpse(members)
+Error in glimpse(members) : 함수 "glimpse"를 찾을 수 없습니다
+> ```
+에러: 길이가 0인 변수명을 사용하려고 시도했습니다
+> 
+> ## Test data
+> Summary of Test data:
+에러: 예상하지 못한 기호(symbol)입니다. in "Summary of"
+> ```{r}
+에러: 길이가 0인 변수명을 사용하려고 시도했습니다
+> summary(test)
+Error in summary(test) : 객체 'test'를 찾을 수 없습니다
+> ```
+에러: 길이가 0인 변수명을 사용하려고 시도했습니다
+> 
+> A glimpse into the test data:
+에러: 예상하지 못한 기호(symbol)입니다. in "A glimpse"
+> ```{r}
+에러: 길이가 0인 변수명을 사용하려고 시도했습니다
+> glimpse(test)
+Error in glimpse(test) : 함수 "glimpse"를 찾을 수 없습니다
+> ```
+에러: 길이가 0인 변수명을 사용하려고 시도했습니다
+> 
+> ## Data preparation
+> 
+> Let's get the data all together for any exploration with respect to target variable. Let's look into different types of columns the generating dataset have:
+에러: 예상하지 못한 문자열 상수(string constant)입니다. in "Let's get the data all together for any exploration with respect to target variable. Let'"
+> ```{r}
+에러: 길이가 0인 변수명을 사용하려고 시도했습니다
+> train$key<-paste(train$msno,train$song_id,sep="_")
+Error in paste(train$msno, train$song_id, sep = "_") : 
+  객체 'train'를 찾을 수 없습니다
+> test$key<-paste(test$msno,test$song_id,sep="_")
+Error in paste(test$msno, test$song_id, sep = "_") : 
+  객체 'test'를 찾을 수 없습니다
+> 
+> train$id<-row.names(train)
+Error in row.names(train) : 객체 'train'를 찾을 수 없습니다
+> 
+> test$target<-''
+Error in test$target <- "" : 객체 'test'를 찾을 수 없습니다
+> 
+> train$type<-'train'
+Error in train$type <- "train" : 객체 'train'를 찾을 수 없습니다
+> test$type<-'test'
+Error in test$type <- "test" : 객체 'test'를 찾을 수 없습니다
+> 
+> train1<-train[,c('key','type','id','msno','song_id','source_system_tab','source_screen_name','source_type','target')]
+에러: 객체 'train'를 찾을 수 없습니다
+> test1<-test[,c('key','type','id','msno','song_id','source_system_tab','source_screen_name','source_type','target')]
+에러: 객체 'test'를 찾을 수 없습니다
+> 
+> rm(train)
+경고메시지(들): 
+In rm(train) : 객체 'train'를 찾을 수 없습니다
+> rm(test)
+경고메시지(들): 
+In rm(test) : 객체 'test'를 찾을 수 없습니다
+> 
+> master_df<-rbind(train1,test1)
+Error in rbind(train1, test1) : 객체 'train1'를 찾을 수 없습니다
+> 
+> rm(train1)
+경고메시지(들): 
+In rm(train1) : 객체 'train1'를 찾을 수 없습니다
+> rm(test1)
+경고메시지(들): 
+In rm(test1) : 객체 'test1'를 찾을 수 없습니다
+> 
+> colnames(master_df)
+Error in is.data.frame(x) : 객체 'master_df'를 찾을 수 없습니다
+> ```
+에러: 길이가 0인 변수명을 사용하려고 시도했습니다
+> 
+> After adding further columns from songs and members dataset, we have the following columns:
+에러: 예상하지 못한 기호(symbol)입니다. in "After adding"
+> 
+> 
+> ```{r}
+에러: 길이가 0인 변수명을 사용하려고 시도했습니다
+> master_df_w_song_details<-merge.data.frame(x=master_df,
++                                            y=songs,
++                                            by=("song_id"),
++                                            all.x=TRUE)
+Error in as.data.frame(x) : 객체 'master_df'를 찾을 수 없습니다
+>                                            
+>                                            
+> master_df_w_song_member_details<-merge.data.frame(x=master_df_w_song_details,
++                                                   y=members,
++                                                   by=("msno"),
++                                                   all.x=TRUE)
+Error in as.data.frame(x) : 
+  객체 'master_df_w_song_details'를 찾을 수 없습니다
+> 
+> rm(master_df_w_song_details)
+경고메시지(들): 
+In rm(master_df_w_song_details) :
+  객체 'master_df_w_song_details'를 찾을 수 없습니다
+> rm(songs)
+경고메시지(들): 
+In rm(songs) : 객체 'songs'를 찾을 수 없습니다
+> rm(members)
+경고메시지(들): 
+In rm(members) : 객체 'members'를 찾을 수 없습니다
+> 
+> master_df_w_song_member_details_train<-master_df_w_song_member_details[master_df_w_song_member_details$type=='train',]
+에러: 객체 'master_df_w_song_member_details'를 찾을 수 없습니다
+> 
+> rm(master_df_w_song_member_details)
+경고메시지(들): 
+In rm(master_df_w_song_member_details) :
+  객체 'master_df_w_song_member_details'를 찾을 수 없습니다
+> 
+> colnames(master_df_w_song_member_details_train)
+Error in is.data.frame(x) : 
+  객체 'master_df_w_song_member_details_train'를 찾을 수 없습니다
+> ```
+에러: 길이가 0인 변수명을 사용하려고 시도했습니다
+> 
+> 
+> # Individual feature visualisations {.tabset .tabset-fade .tabset-pills}
+> 
+> Now let's look into the individual features and their relationship with target variables. We will go through each variable type and see their distributions.
+에러: 예상하지 못한 기호(symbol)입니다. in "Now let"
+> 
+> ## Features from original data
+> 
+> Note the logarithmic y-axes:
+에러: 예상하지 못한 기호(symbol)입니다. in "Note the"
+> 
+> ```{r  split=FALSE, fig.align = 'default', warning = FALSE, fig.cap ="Fig. 1", out.width="100%"}
+에러: 길이가 0인 변수명을 사용하려고 시도했습니다
+> p1 <- master_df_w_song_member_details_train %>%
++   ggplot(aes(source_system_tab, fill = "#00394C")) +
++   geom_bar() +
++   scale_y_log10() +
++   theme(legend.position = "none")
+Error in master_df_w_song_member_details_train %>% ggplot(aes(source_system_tab,  : 
+  함수 "%>%"를 찾을 수 없습니다
+> 
+> p2 <- master_df_w_song_member_details_train %>%
++   ggplot(aes(source_screen_name, fill = "#00394C")) +
++   geom_bar() +
++   scale_y_log10() +
++   theme(axis.text = element_text(size = 5, colour="black"),legend.position = "none")+coord_flip()
+Error in master_df_w_song_member_details_train %>% ggplot(aes(source_screen_name,  : 
+  함수 "%>%"를 찾을 수 없습니다
+> 
+> p3 <- master_df_w_song_member_details_train %>%
++   ggplot(aes(source_type, fill = "#00394C")) +
++   geom_bar() +
++   scale_y_log10() +
++   theme(legend.position = "none")+coord_flip()
+Error in master_df_w_song_member_details_train %>% ggplot(aes(source_type,  : 
+  함수 "%>%"를 찾을 수 없습니다
+> 
+> ggarrange(p1,                                                 # First row with scatter plot
++           ggarrange(p2, p3, ncol = 2), # Second row with box and dot plots
++           nrow = 2
++           ) 
+Error in ggarrange(p1, ggarrange(p2, p3, ncol = 2), nrow = 2) : 
+  함수 "ggarrange"를 찾을 수 없습니다
+> 
+> ```
+에러: 길이가 0인 변수명을 사용하려고 시도했습니다
+> So as we can see from the training data, people seem to listen more songs through *my library* or through *discover*. Also, they seem to listen to songs from *online playlist*,
+에러: 예상하지 못한 기호(symbol)입니다. in "So as"
+> *local playlist* or *local library*
+에러: 예기치 않은 '*'입니다 in "*"
+> 
+> 
+> ## Categorical Features from songs and members data - 1
+> 
+> Now, let's look into frequencies of top 15 genres, artists, composers and songs from the training data. Note the logarithmic y-axes:
+에러: 예기치 않은 ','입니다 in "Now,"
+> 
+> ```{r  split=FALSE, fig.align = 'default', warning = FALSE, fig.cap ="Fig. 2", out.width="100%"}
+에러: 길이가 0인 변수명을 사용하려고 시도했습니다
+> 
+> d2 <- aggregate(key~genre_ids,data=master_df_w_song_member_details_train,FUN=length)
+Error in eval(m$data, parent.frame()) : 
+  객체 'master_df_w_song_member_details_train'를 찾을 수 없습니다
+> d2<- d2[order(-d2$key),]
+에러: 객체 'd2'를 찾을 수 없습니다
+> d3<- head(d2,15)
+Error in head(d2, 15) : 객체 'd2'를 찾을 수 없습니다
+> 
+> remove(d2)
+경고메시지(들): 
+In remove(d2) : 객체 'd2'를 찾을 수 없습니다
+> 
+> p1 <- 
++   ggplot(d3,aes(genre_ids,key)) +
++   geom_bar(stat='identity',fill="#00394C") +
++   scale_y_log10() +
++   theme(legend.position = "none")+coord_flip()
+Error in ggplot(d3, aes(genre_ids, key)) : 
+  함수 "ggplot"를 찾을 수 없습니다
+> 
+> 
+> 
+> d2 <- aggregate(key~artist_name,data=master_df_w_song_member_details_train,FUN=length)
+Error in eval(m$data, parent.frame()) : 
+  객체 'master_df_w_song_member_details_train'를 찾을 수 없습니다
+> d2<- d2[order(-d2$key),]
+에러: 객체 'd2'를 찾을 수 없습니다
+> d3<- head(d2,15)
+Error in head(d2, 15) : 객체 'd2'를 찾을 수 없습니다
+> d3$artist_id<-row.names(d3)
+Error in row.names(d3) : 객체 'd3'를 찾을 수 없습니다
+> 
+> remove(d2)
+경고메시지(들): 
+In remove(d2) : 객체 'd2'를 찾을 수 없습니다
+> 
+> p2 <- 
++   ggplot(d3,aes(artist_id,key)) +
++   geom_bar(stat='identity',fill="#00394C") +
++   scale_y_log10() +
++   theme(legend.position = "none")+coord_flip()
+Error in ggplot(d3, aes(artist_id, key)) : 
+  함수 "ggplot"를 찾을 수 없습니다
+> 
+> 
+> 
+> d2 <- aggregate(key~composer,data=master_df_w_song_member_details_train,FUN=length)
+Error in eval(m$data, parent.frame()) : 
+  객체 'master_df_w_song_member_details_train'를 찾을 수 없습니다
+> d2<- d2[order(-d2$key),]
+에러: 객체 'd2'를 찾을 수 없습니다
+> d3<- head(d2,15)
+Error in head(d2, 15) : 객체 'd2'를 찾을 수 없습니다
+> d3$composer_id<-row.names(d3)
+Error in row.names(d3) : 객체 'd3'를 찾을 수 없습니다
+> 
+> remove(d2)
+경고메시지(들): 
+In remove(d2) : 객체 'd2'를 찾을 수 없습니다
+> 
+> p3 <- 
++   ggplot(d3,aes(composer_id,key)) +
++   geom_bar(stat='identity',fill="#00394C") +
++   scale_y_log10() +
++   theme(legend.position = "none")+coord_flip()
+Error in ggplot(d3, aes(composer_id, key)) : 
+  함수 "ggplot"를 찾을 수 없습니다
+> 
+> 
+> d2 <- aggregate(key~song_id,data=master_df_w_song_member_details_train,FUN=length)
+Error in eval(m$data, parent.frame()) : 
+  객체 'master_df_w_song_member_details_train'를 찾을 수 없습니다
+> d2<- d2[order(-d2$key),]
+에러: 객체 'd2'를 찾을 수 없습니다
+> d3<- head(d2,15)
+Error in head(d2, 15) : 객체 'd2'를 찾을 수 없습니다
+> d3$songs_id<-row.names(d3)
+Error in row.names(d3) : 객체 'd3'를 찾을 수 없습니다
+> 
+> remove(d2)
+경고메시지(들): 
+In remove(d2) : 객체 'd2'를 찾을 수 없습니다
+> 
+> p4 <- 
++   ggplot(d3,aes(songs_id,key)) +
++   geom_bar(stat='identity',fill="#00394C") +
++   scale_y_log10() +
++   theme(legend.position = "none")+coord_flip()
+Error in ggplot(d3, aes(songs_id, key)) : 
+  함수 "ggplot"를 찾을 수 없습니다
+> 
+>    
+> 
+> layout <- matrix(c(1,2,3,4),2,2,byrow=TRUE)
+> multiplot(p1, p2, p3, p4, layout=layout)
+Error in multiplot(p1, p2, p3, p4, layout = layout) : 
+  객체 'p1'를 찾을 수 없습니다
+> 
+> ```
+에러: 길이가 0인 변수명을 사용하려고 시도했습니다
+> We have replaced the actual artist names, composer names and song ids with dummy ids. We will use these shortened ids for feature generation at a later stage
+에러: 예상하지 못한 기호(symbol)입니다. in "We have"
+> 
+> 
+> ## Categorical Features from songs and members data - 2
+> 
+> Now, let's look into frequencies of top 15 lyricists, cities, languages and *registered_via* from the training data. Note the logarithmic y-axes:
+에러: 예기치 않은 ','입니다 in "Now,"
+> 
+> ```{r  split=FALSE, fig.align = 'default', warning = FALSE, fig.cap ="Fig. 3", out.width="100%"}
+에러: 길이가 0인 변수명을 사용하려고 시도했습니다
+> 
+> d2 <- aggregate(key~lyricist,data=master_df_w_song_member_details_train,FUN=length)
+Error in eval(m$data, parent.frame()) : 
+  객체 'master_df_w_song_member_details_train'를 찾을 수 없습니다
+> d2<- d2[order(-d2$key),]
+에러: 객체 'd2'를 찾을 수 없습니다
+> d3<- head(d2,15)
+Error in head(d2, 15) : 객체 'd2'를 찾을 수 없습니다
+> d3$lyricist_id<-row.names(d3)
+Error in row.names(d3) : 객체 'd3'를 찾을 수 없습니다
+> 
+> remove(d2)
+경고메시지(들): 
+In remove(d2) : 객체 'd2'를 찾을 수 없습니다
+> 
+> p1 <- 
++   ggplot(d3,aes(lyricist_id,key)) +
++   geom_bar(stat='identity',fill="#00394C") +
++   scale_y_log10() +
++   theme(legend.position = "none")+coord_flip()
+Error in ggplot(d3, aes(lyricist_id, key)) : 
+  함수 "ggplot"를 찾을 수 없습니다
+> 
+> 
+> 
+> d2 <- aggregate(key~city,data=master_df_w_song_member_details_train,FUN=length)
+Error in eval(m$data, parent.frame()) : 
+  객체 'master_df_w_song_member_details_train'를 찾을 수 없습니다
+> d2<- d2[order(-d2$key),]
+에러: 객체 'd2'를 찾을 수 없습니다
+> d3<- head(d2,15)
+Error in head(d2, 15) : 객체 'd2'를 찾을 수 없습니다
+> d3$city_id<-row.names(d3)
+Error in row.names(d3) : 객체 'd3'를 찾을 수 없습니다
+> 
+> remove(d2)
+경고메시지(들): 
+In remove(d2) : 객체 'd2'를 찾을 수 없습니다
+> 
+> p2 <- 
++   ggplot(d3,aes(city_id,key)) +
++   geom_bar(stat='identity',fill="#00394C") +
++   scale_y_log10() +
++   theme(legend.position = "none")+coord_flip()
+Error in ggplot(d3, aes(city_id, key)) : 함수 "ggplot"를 찾을 수 없습니다
+> 
+> 
+> 
+> d2 <- aggregate(key~language,data=master_df_w_song_member_details_train,FUN=length)
+Error in eval(m$data, parent.frame()) : 
+  객체 'master_df_w_song_member_details_train'를 찾을 수 없습니다
+> d2<- d2[order(-d2$key),]
+에러: 객체 'd2'를 찾을 수 없습니다
+> d3<- head(d2,15)
+Error in head(d2, 15) : 객체 'd2'를 찾을 수 없습니다
+> d3$language_id<-row.names(d3) 
+Error in row.names(d3) : 객체 'd3'를 찾을 수 없습니다
+> 
+> remove(d2)
+경고메시지(들): 
+In remove(d2) : 객체 'd2'를 찾을 수 없습니다
+> 
+> p3 <- 
++   ggplot(d3,aes(language_id,key)) +
++   geom_bar(stat='identity',fill="#00394C") +
++   scale_y_log10() +
++   theme(legend.position = "none")+coord_flip()
+Error in ggplot(d3, aes(language_id, key)) : 
+  함수 "ggplot"를 찾을 수 없습니다
+> 
+> 
+> d2 <- aggregate(key~registered_via,data=master_df_w_song_member_details_train,FUN=length)
+Error in eval(m$data, parent.frame()) : 
+  객체 'master_df_w_song_member_details_train'를 찾을 수 없습니다
+> d2<- d2[order(-d2$key),]
+에러: 객체 'd2'를 찾을 수 없습니다
+> d3<- head(d2,15)
+Error in head(d2, 15) : 객체 'd2'를 찾을 수 없습니다
+> d3$registered_approach_id<-row.names(d3) 
+Error in row.names(d3) : 객체 'd3'를 찾을 수 없습니다
+> 
+> remove(d2)
+경고메시지(들): 
+In remove(d2) : 객체 'd2'를 찾을 수 없습니다
+> 
+> p4 <- 
++   ggplot(d3,aes(registered_approach_id,key)) +
++   geom_bar(stat='identity',fill="#00394C") +
++   scale_y_log10() +
++   theme(legend.position = "none")+coord_flip()
+Error in ggplot(d3, aes(registered_approach_id, key)) : 
+  함수 "ggplot"를 찾을 수 없습니다
+> 
+>    
+> 
+> layout <- matrix(c(1,2,3,4),2,2,byrow=TRUE)
+> multiplot(p1, p2, p3, p4, layout=layout)
+Error in multiplot(p1, p2, p3, p4, layout = layout) : 
+  객체 'p1'를 찾을 수 없습니다
+> 
+> ```
+에러: 길이가 0인 변수명을 사용하려고 시도했습니다
+> We have replaced the actual city, lyricist names, languages and registered_approaches with dummy ids. We will use these shortened ids for feature generation at a later stage.
+에러: 예상하지 못한 기호(symbol)입니다. in "We have"
+> 
+> 
+> # Combines feature visualizations {.tabset .tabset-fade .tabset-pills}
+> title: 
++ ---
++ title: 'Pallab Sarkar - KKBox Music Recommendation EDA'
+Error in -title : 단항연산자에 유효한 인자가 아닙니다
+> date: '`r Sys.Date()`'
+Error in date:"`r Sys.Date()`" : 인자의 값이 NA/NaN 입니다.
+추가정보: 경고메시지(들): 
+강제형변환에 의해 생성된 NA 입니다 
+> output:
++   html_document:
++     number_sections: true
+에러: 객체 'output'를 찾을 수 없습니다
+>     fig_caption: true
+에러: 객체 'fig_caption'를 찾을 수 없습니다
+>     toc: true
+에러: 객체 'toc'를 찾을 수 없습니다
+>     fig_width: 7
+에러: 객체 'fig_width'를 찾을 수 없습니다
+>     fig_height: 4.5
+에러: 객체 'fig_height'를 찾을 수 없습니다
+>     theme: cosmo
+에러: 객체 'theme'를 찾을 수 없습니다
+>     highlight: tango
+에러: 객체 'highlight'를 찾을 수 없습니다
+>     code_folding: hide
+에러: 객체 'code_folding'를 찾을 수 없습니다
+> ---
++ ---
++ title: 'Pallab Sarkar - KKBox Music Recommendation EDA'
+Error in -title : 단항연산자에 유효한 인자가 아닙니다
+> date: '`r Sys.Date()`'
+Error in date:"`r Sys.Date()`" : 인자의 값이 NA/NaN 입니다.
+추가정보: 경고메시지(들): 
+강제형변환에 의해 생성된 NA 입니다 
+> output:
++   html_document:
++     number_sections: true
+에러: 객체 'output'를 찾을 수 없습니다
+>     fig_caption: true
+에러: 객체 'fig_caption'를 찾을 수 없습니다
+>     toc: true
+에러: 객체 'toc'를 찾을 수 없습니다
+>     fig_width: 7
+에러: 객체 'fig_width'를 찾을 수 없습니다
+>     fig_height: 4.5
+에러: 객체 'fig_height'를 찾을 수 없습니다
+>     theme: cosmo
+에러: 객체 'theme'를 찾을 수 없습니다
+>     highlight: tango
+에러: 객체 'highlight'를 찾을 수 없습니다
+>     code_folding: hide
+에러: 객체 'code_folding'를 찾을 수 없습니다
+> ------
++ title: 'Pallab Sarkar - KKBox Music Recommendation EDA'
+Error in -title : 단항연산자에 유효한 인자가 아닙니다
+> date: '`r Sys.Date()`'
+Error in date:"`r Sys.Date()`" : 인자의 값이 NA/NaN 입니다.
+추가정보: 경고메시지(들): 
+강제형변환에 의해 생성된 NA 입니다 
+> output:
++   html_document:
++     number_sections: true
+에러: 객체 'output'를 찾을 수 없습니다
+>     fig_caption: true
+에러: 객체 'fig_caption'를 찾을 수 없습니다
+>     toc: true
+에러: 객체 'toc'를 찾을 수 없습니다
+>     fig_width: 7
+에러: 객체 'fig_width'를 찾을 수 없습니다
+>     fig_height: 4.5
+에러: 객체 'fig_height'를 찾을 수 없습니다
+>     theme: cosmo
+에러: 객체 'theme'를 찾을 수 없습니다
+>     highlight: tango
+에러: 객체 'highlight'를 찾을 수 없습니다
+>     code_folding: hide
+에러: 객체 'code_folding'를 찾을 수 없습니다
+> ---
++ 
++ 
++ 
++ ---
++ 
+에러: 예상하지 못한 입력의 끝(end of input)입니다.
+> library('ggplot2') # visualisation
+Error in library("ggplot2") : ‘ggplot2’이라고 불리는 패키지가 없습니다
+> library('scales') # visualisation
+Error in library("scales") : ‘scales’이라고 불리는 패키지가 없습니다
+> library('grid') # visualisation
+> library('ggthemes') # visualisation
+Error in library("ggthemes") : 
+  ‘ggthemes’이라고 불리는 패키지가 없습니다
+> library('gridExtra') # visualisation
+Error in library("gridExtra") : 
+  ‘gridExtra’이라고 불리는 패키지가 없습니다
+> library('RColorBrewer') # visualisation
+Error in library("RColorBrewer") : 
+  ‘RColorBrewer’이라고 불리는 패키지가 없습니다
+> library('corrplot') # visualisation
+Error in library("corrplot") : 
+  ‘corrplot’이라고 불리는 패키지가 없습니다
+> utils:::menuInstallPkgs()
+--- 현재 세션에서 사용할 CRAN 미러를 선택해 주세요 ---
+install.packages(NULL, .libPaths()[1L], dependencies = NA, type = type)에서 경고가 발생했습니다 : 
+  'lib = "C:/Program Files/R/R-3.4.0/library"'는 기록이 가능하지 않습니다
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/corrplot_0.77.zip'을 시도합니다
+Content type 'application/zip' length 3019303 bytes (2.9 MB)
+downloaded 2.9 MB
+
+패키지 ‘corrplot’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+
+다운로드된 바이너리 패키지들은 다음의 위치에 있습니다
+        C:\Users\KANG JUN HU\AppData\Local\Temp\RtmpE1XRtC\downloaded_packages
+> utils:::menuInstallPkgs()
+Error in install.packages(NULL, .libPaths()[1L], dependencies = NA, type = type) : 
+  지정된 패키지가 없습니다.
+> library('ggpubr') # visualisation
+Error in library("ggpubr") : ‘ggpubr’이라고 불리는 패키지가 없습니다
+> install.packages("package name") 
+‘C:/Users/KANG JUN HU/Documents/R/win-library/3.4’의 위치에 패키지(들)을 설치합니다.
+(왜냐하면 ‘lib’가 지정되지 않았기 때문입니다)
+경고메시지(들): 
+패키지 ‘package name’(들)이 사용가능하지 않습니다 (그 이유는 for R version 3.4.0 입니다) 
+> 
+> 출처: http://rfriend.tistory.com/7 [R, Python 분석과 프로그래밍 (by R Friend)]
+에러: 예기치 않은 '/'입니다 in "출처: http:/"
+> install.packages("package name") 
+‘C:/Users/KANG JUN HU/Documents/R/win-library/3.4’의 위치에 패키지(들)을 설치합니다.
+(왜냐하면 ‘lib’가 지정되지 않았기 때문입니다)
+경고메시지(들): 
+패키지 ‘package name’(들)이 사용가능하지 않습니다 (그 이유는 for R version 3.4.0 입니다) 
+> 
+> 출처: http://rfriend.tistory.com/7 [R, Python 분석과 프로그래밍 (by R Friend)]
+에러: 예기치 않은 '/'입니다 in "출처: http:/"
+> install.packages("ggplot2") 
+‘C:/Users/KANG JUN HU/Documents/R/win-library/3.4’의 위치에 패키지(들)을 설치합니다.
+(왜냐하면 ‘lib’가 지정되지 않았기 때문입니다)
+‘stringi’, ‘magrittr’, ‘colorspace’, ‘Rcpp’, ‘stringr’, ‘RColorBrewer’, ‘dichromat’, ‘munsell’, ‘labeling’, ‘R6’, ‘viridisLite’, ‘rlang’, ‘digest’, ‘gtable’, ‘plyr’, ‘reshape2’, ‘scales’, ‘tibble’, ‘lazyeval’(들)을 또한 설치합니다.
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/stringi_1.1.5.zip'을 시도합니다
+Content type 'application/zip' length 14289948 bytes (13.6 MB)
+downloaded 13.6 MB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/magrittr_1.5.zip'을 시도합니다
+Content type 'application/zip' length 155741 bytes (152 KB)
+downloaded 152 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/colorspace_1.3-2.zip'을 시도합니다
+Content type 'application/zip' length 447193 bytes (436 KB)
+downloaded 436 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/Rcpp_0.12.13.zip'을 시도합니다
+Content type 'application/zip' length 4354267 bytes (4.2 MB)
+downloaded 4.2 MB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/stringr_1.2.0.zip'을 시도합니다
+Content type 'application/zip' length 149049 bytes (145 KB)
+downloaded 145 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/RColorBrewer_1.1-2.zip'을 시도합니다
+Content type 'application/zip' length 26979 bytes (26 KB)
+downloaded 26 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/dichromat_2.0-0.zip'을 시도합니다
+Content type 'application/zip' length 147934 bytes (144 KB)
+downloaded 144 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/munsell_0.4.3.zip'을 시도합니다
+Content type 'application/zip' length 134531 bytes (131 KB)
+downloaded 131 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/labeling_0.3.zip'을 시도합니다
+Content type 'application/zip' length 41095 bytes (40 KB)
+downloaded 40 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/R6_2.2.2.zip'을 시도합니다
+Content type 'application/zip' length 316864 bytes (309 KB)
+downloaded 309 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/viridisLite_0.2.0.zip'을 시도합니다
+Content type 'application/zip' length 57866 bytes (56 KB)
+downloaded 56 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/rlang_0.1.2.zip'을 시도합니다
+Content type 'application/zip' length 466486 bytes (455 KB)
+downloaded 455 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/digest_0.6.12.zip'을 시도합니다
+Content type 'application/zip' length 172990 bytes (168 KB)
+downloaded 168 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/gtable_0.2.0.zip'을 시도합니다
+Content type 'application/zip' length 58368 bytes (57 KB)
+downloaded 57 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/plyr_1.8.4.zip'을 시도합니다
+Content type 'application/zip' length 1219931 bytes (1.2 MB)
+downloaded 1.2 MB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/reshape2_1.4.2.zip'을 시도합니다
+Content type 'application/zip' length 610135 bytes (595 KB)
+downloaded 595 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/scales_0.5.0.zip'을 시도합니다
+Content type 'application/zip' length 694596 bytes (678 KB)
+downloaded 678 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/tibble_1.3.4.zip'을 시도합니다
+Content type 'application/zip' length 676773 bytes (660 KB)
+downloaded 660 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/lazyeval_0.2.0.zip'을 시도합니다
+Content type 'application/zip' length 139541 bytes (136 KB)
+downloaded 136 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/ggplot2_2.2.1.zip'을 시도합니다
+Content type 'application/zip' length 2783760 bytes (2.7 MB)
+downloaded 2.7 MB
+
+패키지 ‘stringi’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘magrittr’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘colorspace’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘Rcpp’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘stringr’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘RColorBrewer’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘dichromat’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘munsell’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘labeling’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘R6’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘viridisLite’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘rlang’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘digest’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘gtable’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘plyr’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘reshape2’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘scales’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘tibble’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘lazyeval’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘ggplot2’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+
+다운로드된 바이너리 패키지들은 다음의 위치에 있습니다
+        C:\Users\KANG JUN HU\AppData\Local\Temp\RtmpE1XRtC\downloaded_packages
+> install.packages("scales") 
+‘C:/Users/KANG JUN HU/Documents/R/win-library/3.4’의 위치에 패키지(들)을 설치합니다.
+(왜냐하면 ‘lib’가 지정되지 않았기 때문입니다)
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/scales_0.5.0.zip'을 시도합니다
+Content type 'application/zip' length 694596 bytes (678 KB)
+downloaded 678 KB
+
+패키지 ‘scales’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+
+다운로드된 바이너리 패키지들은 다음의 위치에 있습니다
+        C:\Users\KANG JUN HU\AppData\Local\Temp\RtmpE1XRtC\downloaded_packages
+> install.packages("grid") 
+‘C:/Users/KANG JUN HU/Documents/R/win-library/3.4’의 위치에 패키지(들)을 설치합니다.
+(왜냐하면 ‘lib’가 지정되지 않았기 때문입니다)
+경고메시지(들): 
+1: 패키지 ‘grid’(들)이 사용가능하지 않습니다 (그 이유는 for R version 3.4.0 입니다) 
+2: package ‘grid’ is a base package, and should not be updated 
+> install.packages("ggthemes") 
+‘C:/Users/KANG JUN HU/Documents/R/win-library/3.4’의 위치에 패키지(들)을 설치합니다.
+(왜냐하면 ‘lib’가 지정되지 않았기 때문입니다)
+‘assertthat’(들)을 또한 설치합니다.
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/assertthat_0.2.0.zip'을 시도합니다
+Content type 'application/zip' length 44076 bytes (43 KB)
+downloaded 43 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/ggthemes_3.4.0.zip'을 시도합니다
+Content type 'application/zip' length 908873 bytes (887 KB)
+downloaded 887 KB
+
+패키지 ‘assertthat’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘ggthemes’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+
+다운로드된 바이너리 패키지들은 다음의 위치에 있습니다
+        C:\Users\KANG JUN HU\AppData\Local\Temp\RtmpE1XRtC\downloaded_packages
+> install.packages("gridExtra") 
+‘C:/Users/KANG JUN HU/Documents/R/win-library/3.4’의 위치에 패키지(들)을 설치합니다.
+(왜냐하면 ‘lib’가 지정되지 않았기 때문입니다)
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/gridExtra_2.3.zip'을 시도합니다
+Content type 'application/zip' length 1084695 bytes (1.0 MB)
+downloaded 1.0 MB
+
+패키지 ‘gridExtra’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+
+다운로드된 바이너리 패키지들은 다음의 위치에 있습니다
+        C:\Users\KANG JUN HU\AppData\Local\Temp\RtmpE1XRtC\downloaded_packages
+> install.packages("RColorBrewer") 
+‘C:/Users/KANG JUN HU/Documents/R/win-library/3.4’의 위치에 패키지(들)을 설치합니다.
+(왜냐하면 ‘lib’가 지정되지 않았기 때문입니다)
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/RColorBrewer_1.1-2.zip'을 시도합니다
+Content type 'application/zip' length 26979 bytes (26 KB)
+downloaded 26 KB
+
+패키지 ‘RColorBrewer’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+
+다운로드된 바이너리 패키지들은 다음의 위치에 있습니다
+        C:\Users\KANG JUN HU\AppData\Local\Temp\RtmpE1XRtC\downloaded_packages
+> install.packages("corrplot") 
+‘C:/Users/KANG JUN HU/Documents/R/win-library/3.4’의 위치에 패키지(들)을 설치합니다.
+(왜냐하면 ‘lib’가 지정되지 않았기 때문입니다)
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/corrplot_0.77.zip'을 시도합니다
+Content type 'application/zip' length 3019303 bytes (2.9 MB)
+downloaded 2.9 MB
+
+패키지 ‘corrplot’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+
+다운로드된 바이너리 패키지들은 다음의 위치에 있습니다
+        C:\Users\KANG JUN HU\AppData\Local\Temp\RtmpE1XRtC\downloaded_packages
+> install.packages("ggpubr") 
+‘C:/Users/KANG JUN HU/Documents/R/win-library/3.4’의 위치에 패키지(들)을 설치합니다.
+(왜냐하면 ‘lib’가 지정되지 않았기 때문입니다)
+‘bindr’, ‘glue’, ‘tidyselect’, ‘bindrcpp’, ‘pkgconfig’, ‘BH’, ‘plogr’, ‘ggrepel’, ‘ggsci’, ‘tidyr’, ‘purrr’, ‘dplyr’, ‘cowplot’, ‘ggsignif’(들)을 또한 설치합니다.
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/bindr_0.1.zip'을 시도합니다
+Content type 'application/zip' length 14973 bytes (14 KB)
+downloaded 14 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/glue_1.1.1.zip'을 시도합니다
+Content type 'application/zip' length 41980 bytes (40 KB)
+downloaded 40 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/tidyselect_0.2.2.zip'을 시도합니다
+Content type 'application/zip' length 621735 bytes (607 KB)
+downloaded 607 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/bindrcpp_0.2.zip'을 시도합니다
+Content type 'application/zip' length 637480 bytes (622 KB)
+downloaded 622 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/pkgconfig_2.0.1.zip'을 시도합니다
+Content type 'application/zip' length 20057 bytes (19 KB)
+downloaded 19 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/BH_1.65.0-1.zip'을 시도합니다
+Content type 'application/zip' length 17006683 bytes (16.2 MB)
+downloaded 16.2 MB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/plogr_0.1-1.zip'을 시도합니다
+Content type 'application/zip' length 17924 bytes (17 KB)
+downloaded 17 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/ggrepel_0.7.0.zip'을 시도합니다
+Content type 'application/zip' length 989950 bytes (966 KB)
+downloaded 966 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/ggsci_2.8.zip'을 시도합니다
+Content type 'application/zip' length 2958103 bytes (2.8 MB)
+downloaded 2.8 MB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/tidyr_0.7.1.zip'을 시도합니다
+Content type 'application/zip' length 893813 bytes (872 KB)
+downloaded 872 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/purrr_0.2.3.zip'을 시도합니다
+Content type 'application/zip' length 242861 bytes (237 KB)
+downloaded 237 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/dplyr_0.7.4.zip'을 시도합니다
+Content type 'application/zip' length 2885155 bytes (2.8 MB)
+downloaded 2.8 MB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/cowplot_0.8.0.zip'을 시도합니다
+Content type 'application/zip' length 2247214 bytes (2.1 MB)
+downloaded 2.1 MB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/ggsignif_0.4.0.zip'을 시도합니다
+Content type 'application/zip' length 45147 bytes (44 KB)
+downloaded 44 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/ggpubr_0.1.5.zip'을 시도합니다
+Content type 'application/zip' length 1477314 bytes (1.4 MB)
+downloaded 1.4 MB
+
+패키지 ‘bindr’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘glue’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘tidyselect’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘bindrcpp’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘pkgconfig’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘BH’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘plogr’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘ggrepel’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘ggsci’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘tidyr’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘purrr’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘dplyr’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘cowplot’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘ggsignif’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘ggpubr’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+
+다운로드된 바이너리 패키지들은 다음의 위치에 있습니다
+        C:\Users\KANG JUN HU\AppData\Local\Temp\RtmpE1XRtC\downloaded_packages
+> install.packages("dplyr") 
+‘C:/Users/KANG JUN HU/Documents/R/win-library/3.4’의 위치에 패키지(들)을 설치합니다.
+(왜냐하면 ‘lib’가 지정되지 않았기 때문입니다)
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/dplyr_0.7.4.zip'을 시도합니다
+Content type 'application/zip' length 2885155 bytes (2.8 MB)
+downloaded 2.8 MB
+
+패키지 ‘dplyr’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+
+다운로드된 바이너리 패키지들은 다음의 위치에 있습니다
+        C:\Users\KANG JUN HU\AppData\Local\Temp\RtmpE1XRtC\downloaded_packages
+> install.packages("readr") 
+‘C:/Users/KANG JUN HU/Documents/R/win-library/3.4’의 위치에 패키지(들)을 설치합니다.
+(왜냐하면 ‘lib’가 지정되지 않았기 때문입니다)
+‘hms’(들)을 또한 설치합니다.
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/hms_0.3.zip'을 시도합니다
+Content type 'application/zip' length 21021 bytes (20 KB)
+downloaded 20 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/readr_1.1.1.zip'을 시도합니다
+Content type 'application/zip' length 1270934 bytes (1.2 MB)
+downloaded 1.2 MB
+
+패키지 ‘hms’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘readr’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+
+다운로드된 바이너리 패키지들은 다음의 위치에 있습니다
+        C:\Users\KANG JUN HU\AppData\Local\Temp\RtmpE1XRtC\downloaded_packages
+> install.packages("data.table") 
+‘C:/Users/KANG JUN HU/Documents/R/win-library/3.4’의 위치에 패키지(들)을 설치합니다.
+(왜냐하면 ‘lib’가 지정되지 않았기 때문입니다)
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/data.table_1.10.4-2.zip'을 시도합니다
+Content type 'application/zip' length 1576919 bytes (1.5 MB)
+downloaded 1.5 MB
+
+패키지 ‘data.table’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+
+다운로드된 바이너리 패키지들은 다음의 위치에 있습니다
+        C:\Users\KANG JUN HU\AppData\Local\Temp\RtmpE1XRtC\downloaded_packages
+> install.packages("tibble") 
+‘C:/Users/KANG JUN HU/Documents/R/win-library/3.4’의 위치에 패키지(들)을 설치합니다.
+(왜냐하면 ‘lib’가 지정되지 않았기 때문입니다)
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/tibble_1.3.4.zip'을 시도합니다
+Content type 'application/zip' length 676773 bytes (660 KB)
+downloaded 660 KB
+
+패키지 ‘tibble’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+
+다운로드된 바이너리 패키지들은 다음의 위치에 있습니다
+        C:\Users\KANG JUN HU\AppData\Local\Temp\RtmpE1XRtC\downloaded_packages
+> install.packages("tidyr") 
+‘C:/Users/KANG JUN HU/Documents/R/win-library/3.4’의 위치에 패키지(들)을 설치합니다.
+(왜냐하면 ‘lib’가 지정되지 않았기 때문입니다)
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/tidyr_0.7.1.zip'을 시도합니다
+Content type 'application/zip' length 893813 bytes (872 KB)
+downloaded 872 KB
+
+패키지 ‘tidyr’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+
+다운로드된 바이너리 패키지들은 다음의 위치에 있습니다
+        C:\Users\KANG JUN HU\AppData\Local\Temp\RtmpE1XRtC\downloaded_packages
+> install.packages("stringr") 
+‘C:/Users/KANG JUN HU/Documents/R/win-library/3.4’의 위치에 패키지(들)을 설치합니다.
+(왜냐하면 ‘lib’가 지정되지 않았기 때문입니다)
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/stringr_1.2.0.zip'을 시도합니다
+Content type 'application/zip' length 149049 bytes (145 KB)
+downloaded 145 KB
+
+패키지 ‘stringr’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+
+다운로드된 바이너리 패키지들은 다음의 위치에 있습니다
+        C:\Users\KANG JUN HU\AppData\Local\Temp\RtmpE1XRtC\downloaded_packages
+> install.packages("forcats") 
+‘C:/Users/KANG JUN HU/Documents/R/win-library/3.4’의 위치에 패키지(들)을 설치합니다.
+(왜냐하면 ‘lib’가 지정되지 않았기 때문입니다)
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/forcats_0.2.0.zip'을 시도합니다
+Error in download.file(url, destfile, method, mode = "wb", ...) : 
+  URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/forcats_0.2.0.zip'를 열 수 없습니다
+추가정보: 경고메시지(들): 
+In download.file(url, destfile, method, mode = "wb", ...) :
+  InternetOpenUrl failed: '작업 시간을 초과했습니다.'
+download.packages(pkgs, destdir = tmpd, available = available, 에서 경고가 발생했습니다 : 
+  패키지 ‘forcats’를 다운로드 하는데 실패했습니다
+> install.packages("forcats") 
+‘C:/Users/KANG JUN HU/Documents/R/win-library/3.4’의 위치에 패키지(들)을 설치합니다.
+(왜냐하면 ‘lib’가 지정되지 않았기 때문입니다)
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/forcats_0.2.0.zip'을 시도합니다
+Content type 'application/zip' length 164584 bytes (160 KB)
+downloaded 160 KB
+
+패키지 ‘forcats’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+
+다운로드된 바이너리 패키지들은 다음의 위치에 있습니다
+        C:\Users\KANG JUN HU\AppData\Local\Temp\RtmpE1XRtC\downloaded_packages
+> install.packages("alluvial") 
+‘C:/Users/KANG JUN HU/Documents/R/win-library/3.4’의 위치에 패키지(들)을 설치합니다.
+(왜냐하면 ‘lib’가 지정되지 않았기 때문입니다)
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/alluvial_0.1-2.zip'을 시도합니다
+Content type 'application/zip' length 528778 bytes (516 KB)
+downloaded 516 KB
+
+패키지 ‘alluvial’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+
+다운로드된 바이너리 패키지들은 다음의 위치에 있습니다
+        C:\Users\KANG JUN HU\AppData\Local\Temp\RtmpE1XRtC\downloaded_packages
+> install.packages("ggfortify") 
+‘C:/Users/KANG JUN HU/Documents/R/win-library/3.4’의 위치에 패키지(들)을 설치합니다.
+(왜냐하면 ‘lib’가 지정되지 않았기 때문입니다)
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/ggfortify_0.4.1.zip'을 시도합니다
+Content type 'application/zip' length 3806423 bytes (3.6 MB)
+downloaded 3.6 MB
+
+패키지 ‘ggfortify’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+
+다운로드된 바이너리 패키지들은 다음의 위치에 있습니다
+        C:\Users\KANG JUN HU\AppData\Local\Temp\RtmpE1XRtC\downloaded_packages
+> install.packages("ggrepel") 
+‘C:/Users/KANG JUN HU/Documents/R/win-library/3.4’의 위치에 패키지(들)을 설치합니다.
+(왜냐하면 ‘lib’가 지정되지 않았기 때문입니다)
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/ggrepel_0.7.0.zip'을 시도합니다
+Content type 'application/zip' length 989950 bytes (966 KB)
+downloaded 966 KB
+
+패키지 ‘ggrepel’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+
+다운로드된 바이너리 패키지들은 다음의 위치에 있습니다
+        C:\Users\KANG JUN HU\AppData\Local\Temp\RtmpE1XRtC\downloaded_packages
+> install.packages("ggridges") 
+‘C:/Users/KANG JUN HU/Documents/R/win-library/3.4’의 위치에 패키지(들)을 설치합니다.
+(왜냐하면 ‘lib’가 지정되지 않았기 때문입니다)
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/ggridges_0.4.1.zip'을 시도합니다
+Content type 'application/zip' length 1174131 bytes (1.1 MB)
+downloaded 1.1 MB
+
+패키지 ‘ggridges’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+
+다운로드된 바이너리 패키지들은 다음의 위치에 있습니다
+        C:\Users\KANG JUN HU\AppData\Local\Temp\RtmpE1XRtC\downloaded_packages
+> install.packages("VIM") 
+‘C:/Users/KANG JUN HU/Documents/R/win-library/3.4’의 위치에 패키지(들)을 설치합니다.
+(왜냐하면 ‘lib’가 지정되지 않았기 때문입니다)
+‘minqa’, ‘nloptr’, ‘RcppEigen’, ‘lme4’, ‘SparseM’, ‘MatrixModels’, ‘zoo’, ‘pbkrtest’, ‘quantreg’, ‘DEoptimR’, ‘lmtest’, ‘car’, ‘robustbase’, ‘sp’, ‘vcd’, ‘e1071’, ‘laeken’(들)을 또한 설치합니다.
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/minqa_1.2.4.zip'을 시도합니다
+Content type 'application/zip' length 667962 bytes (652 KB)
+downloaded 652 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/nloptr_1.0.4.zip'을 시도합니다
+Content type 'application/zip' length 1173078 bytes (1.1 MB)
+downloaded 1.1 MB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/RcppEigen_0.3.3.3.0.zip'을 시도합니다
+Content type 'application/zip' length 2667458 bytes (2.5 MB)
+downloaded 2.5 MB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/lme4_1.1-14.zip'을 시도합니다
+Content type 'application/zip' length 4737820 bytes (4.5 MB)
+downloaded 4.5 MB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/SparseM_1.77.zip'을 시도합니다
+Content type 'application/zip' length 968526 bytes (945 KB)
+downloaded 945 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/MatrixModels_0.4-1.zip'을 시도합니다
+Content type 'application/zip' length 202906 bytes (198 KB)
+downloaded 198 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/zoo_1.8-0.zip'을 시도합니다
+Content type 'application/zip' length 902806 bytes (881 KB)
+downloaded 881 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/pbkrtest_0.4-7.zip'을 시도합니다
+Content type 'application/zip' length 196130 bytes (191 KB)
+downloaded 191 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/quantreg_5.33.zip'을 시도합니다
+Content type 'application/zip' length 2106152 bytes (2.0 MB)
+downloaded 2.0 MB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/DEoptimR_1.0-8.zip'을 시도합니다
+Content type 'application/zip' length 41956 bytes (40 KB)
+downloaded 40 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/lmtest_0.9-35.zip'을 시도합니다
+Content type 'application/zip' length 289101 bytes (282 KB)
+downloaded 282 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/car_2.1-5.zip'을 시도합니다
+Content type 'application/zip' length 1597137 bytes (1.5 MB)
+downloaded 1.5 MB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/robustbase_0.92-7.zip'을 시도합니다
+Content type 'application/zip' length 3358632 bytes (3.2 MB)
+downloaded 3.2 MB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/sp_1.2-5.zip'을 시도합니다
+Content type 'application/zip' length 1538359 bytes (1.5 MB)
+downloaded 1.5 MB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/vcd_1.4-3.zip'을 시도합니다
+Content type 'application/zip' length 1266646 bytes (1.2 MB)
+downloaded 1.2 MB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/e1071_1.6-8.zip'을 시도합니다
+Content type 'application/zip' length 894535 bytes (873 KB)
+downloaded 873 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/laeken_0.4.6.zip'을 시도합니다
+Content type 'application/zip' length 2764510 bytes (2.6 MB)
+downloaded 2.6 MB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/VIM_4.7.0.zip'을 시도합니다
+Content type 'application/zip' length 1376126 bytes (1.3 MB)
+downloaded 1.3 MB
+
+패키지 ‘minqa’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘nloptr’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘RcppEigen’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘lme4’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘SparseM’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘MatrixModels’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘zoo’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘pbkrtest’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘quantreg’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘DEoptimR’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘lmtest’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘car’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘robustbase’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘sp’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘vcd’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘e1071’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘laeken’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘VIM’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+
+다운로드된 바이너리 패키지들은 다음의 위치에 있습니다
+        C:\Users\KANG JUN HU\AppData\Local\Temp\RtmpE1XRtC\downloaded_packages
+> install.packages("plotly") 
+‘C:/Users/KANG JUN HU/Documents/R/win-library/3.4’의 위치에 패키지(들)을 설치합니다.
+(왜냐하면 ‘lib’가 지정되지 않았기 때문입니다)
+‘httpuv’, ‘xtable’, ‘sourcetools’, ‘mime’, ‘curl’, ‘openssl’, ‘yaml’, ‘shiny’, ‘httr’, ‘jsonlite’, ‘base64enc’, ‘htmltools’, ‘htmlwidgets’, ‘hexbin’, ‘crosstalk’(들)을 또한 설치합니다.
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/httpuv_1.3.5.zip'을 시도합니다
+Content type 'application/zip' length 933574 bytes (911 KB)
+downloaded 911 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/xtable_1.8-2.zip'을 시도합니다
+Content type 'application/zip' length 710335 bytes (693 KB)
+downloaded 693 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/sourcetools_0.1.6.zip'을 시도합니다
+Content type 'application/zip' length 528082 bytes (515 KB)
+downloaded 515 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/mime_0.5.zip'을 시도합니다
+Content type 'application/zip' length 38061 bytes (37 KB)
+downloaded 37 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/curl_3.0.zip'을 시도합니다
+Content type 'application/zip' length 3343051 bytes (3.2 MB)
+downloaded 3.2 MB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/openssl_0.9.7.zip'을 시도합니다
+Content type 'application/zip' length 3623322 bytes (3.5 MB)
+downloaded 3.5 MB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/yaml_2.1.14.zip'을 시도합니다
+Content type 'application/zip' length 179629 bytes (175 KB)
+downloaded 175 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/shiny_1.0.5.zip'을 시도합니다
+Content type 'application/zip' length 2833715 bytes (2.7 MB)
+downloaded 2.7 MB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/httr_1.3.1.zip'을 시도합니다
+Content type 'application/zip' length 301730 bytes (294 KB)
+downloaded 294 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/jsonlite_1.5.zip'을 시도합니다
+Content type 'application/zip' length 1159742 bytes (1.1 MB)
+downloaded 1.1 MB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/base64enc_0.1-3.zip'을 시도합니다
+Content type 'application/zip' length 39413 bytes (38 KB)
+downloaded 38 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/htmltools_0.3.6.zip'을 시도합니다
+Content type 'application/zip' length 618223 bytes (603 KB)
+downloaded 603 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/htmlwidgets_0.9.zip'을 시도합니다
+Content type 'application/zip' length 851961 bytes (831 KB)
+downloaded 831 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/hexbin_1.27.1.zip'을 시도합니다
+Content type 'application/zip' length 742636 bytes (725 KB)
+downloaded 725 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/crosstalk_1.0.0.zip'을 시도합니다
+Content type 'application/zip' length 599083 bytes (585 KB)
+downloaded 585 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/plotly_4.7.1.zip'을 시도합니다
+Content type 'application/zip' length 1160433 bytes (1.1 MB)
+downloaded 1.1 MB
+
+패키지 ‘httpuv’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘xtable’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘sourcetools’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘mime’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘curl’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘openssl’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘yaml’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘shiny’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘httr’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘jsonlite’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘base64enc’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘htmltools’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘htmlwidgets’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘hexbin’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘crosstalk’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘plotly’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+
+다운로드된 바이너리 패키지들은 다음의 위치에 있습니다
+        C:\Users\KANG JUN HU\AppData\Local\Temp\RtmpE1XRtC\downloaded_packages
+> install.packages("ggforce") 
+‘C:/Users/KANG JUN HU/Documents/R/win-library/3.4’의 위치에 패키지(들)을 설치합니다.
+(왜냐하면 ‘lib’가 지정되지 않았기 때문입니다)
+‘udunits2’, ‘tweenr’, ‘units’(들)을 또한 설치합니다.
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/udunits2_0.13.zip'을 시도합니다
+Content type 'application/zip' length 277648 bytes (271 KB)
+downloaded 271 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/tweenr_0.1.5.zip'을 시도합니다
+Content type 'application/zip' length 633333 bytes (618 KB)
+downloaded 618 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/units_0.4-6.zip'을 시도합니다
+Content type 'application/zip' length 806752 bytes (787 KB)
+downloaded 787 KB
+
+URL 'https://cloud.r-project.org/bin/windows/contrib/3.4/ggforce_0.1.1.zip'을 시도합니다
+Content type 'application/zip' length 2184698 bytes (2.1 MB)
+downloaded 2.1 MB
+
+패키지 ‘udunits2’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘tweenr’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘units’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+패키지 ‘ggforce’를 성공적으로 압축해제하였고 MD5 sums 이 확인되었습니다
+
+다운로드된 바이너리 패키지들은 다음의 위치에 있습니다
+        C:\Users\KANG JUN HU\AppData\Local\Temp\RtmpE1XRtC\downloaded_packages
+> train <- as.tibble(fread('../input/train.csv'))
+Error in as.tibble(fread("../input/train.csv")) : 
+  함수 "as.tibble"를 찾을 수 없습니다
+> test <- as.tibble(fread('../input/test.csv'))
+Error in as.tibble(fread("../input/test.csv")) : 
+  함수 "as.tibble"를 찾을 수 없습니다
+> songs<-as.tibble(fread('../input/songs.csv'))
+Error in as.tibble(fread("../input/songs.csv")) : 
+  함수 "as.tibble"를 찾을 수 없습니다
+> members<-as.tibble(fread('../input/members.csv'))
+Error in as.tibble(fread("../input/members.csv")) : 
+  함수 "as.tibble"를 찾을 수 없습니다
+> library('ggplot2') # visualisation
+경고메시지(들): 
+패키지 ‘ggplot2’는 R 버전 3.4.2에서 작성되었습니다 
+> library('scales') # visualisation
+경고메시지(들): 
+패키지 ‘scales’는 R 버전 3.4.2에서 작성되었습니다 
+> library('grid') # visualisation
+> library('ggthemes') # visualisation
+경고메시지(들): 
+패키지 ‘ggthemes’는 R 버전 3.4.2에서 작성되었습니다 
+> library('gridExtra') # visualisation
+경고메시지(들): 
+패키지 ‘gridExtra’는 R 버전 3.4.2에서 작성되었습니다 
+> library('RColorBrewer') # visualisation
+경고메시지(들): 
+패키지 ‘RColorBrewer’는 R 버전 3.4.1에서 작성되었습니다 
+> library('corrplot') # visualisation
+경고메시지(들): 
+패키지 ‘corrplot’는 R 버전 3.4.2에서 작성되었습니다 
+> library('ggpubr') # visualisation
+필요한 패키지를 로딩중입니다: magrittr
+경고메시지(들): 
+1: 패키지 ‘ggpubr’는 R 버전 3.4.2에서 작성되었습니다 
+2: 패키지 ‘magrittr’는 R 버전 3.4.2에서 작성되었습니다 
+> library('dplyr') # data manipulation
+
+다음의 패키지를 부착합니다: ‘dplyr’
+
+The following object is masked from ‘package:gridExtra’:
+
+    combine
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+경고메시지(들): 
+패키지 ‘dplyr’는 R 버전 3.4.2에서 작성되었습니다 
+> library('readr') # input/output
+
+다음의 패키지를 부착합니다: ‘readr’
+
+The following object is masked from ‘package:scales’:
+
+    col_factor
+
+경고메시지(들): 
+패키지 ‘readr’는 R 버전 3.4.2에서 작성되었습니다 
+> library('data.table') # data manipulation
+data.table 1.10.4.2
+  The fastest way to learn (by data.table authors): https://www.datacamp.com/courses/data-analysis-the-data-table-way
+  Documentation: ?data.table, example(data.table) and browseVignettes("data.table")
+  Release notes, videos and slides: http://r-datatable.com
+
+다음의 패키지를 부착합니다: ‘data.table’
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+경고메시지(들): 
+패키지 ‘data.table’는 R 버전 3.4.2에서 작성되었습니다 
+> library('tibble') # data wrangling
+경고메시지(들): 
+패키지 ‘tibble’는 R 버전 3.4.2에서 작성되었습니다 
+> library('tidyr') # data wrangling
+
+다음의 패키지를 부착합니다: ‘tidyr’
+
+The following object is masked from ‘package:magrittr’:
+
+    extract
+
+경고메시지(들): 
+패키지 ‘tidyr’는 R 버전 3.4.2에서 작성되었습니다 
+> library('stringr') # string manipulation
+경고메시지(들): 
+패키지 ‘stringr’는 R 버전 3.4.2에서 작성되었습니다 
+> save.image("C:\\Users\\KANG JUN HU\\Documents\\Google Drive\\3.Purdue_Capstone_Design_Project\\XLargeKSQ\\소스코드\\.RData")
+> library('forcats') # factor manipulation

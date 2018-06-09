@@ -1,0 +1,7 @@
+mean_relisten_song_length : 다시 들은 곡들의 평균 길이
+mean_relisten_song_year : 다시 들은 곡들의 평균 발매 연도
+mean_song_length : 들은 곡들의 평균 길이
+mean_song_year : 들은 곡들의 평균 발매 연도
+total_listens : 전체 들은 건수
+total_relistens : 다시 들은 건수
+relisten_rate : 다시 들은 비율

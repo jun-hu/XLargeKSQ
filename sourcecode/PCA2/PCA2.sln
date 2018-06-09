@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.15
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PCA2", "PCA2\PCA2.pyproj", "{F0ED9284-1E9A-4878-BCB8-DF082E21999E}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PCA1", "PCA1\PCA1.pyproj", "{6B6887FF-A64D-44D5-A28F-61C0C2B34534}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F0ED9284-1E9A-4878-BCB8-DF082E21999E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0ED9284-1E9A-4878-BCB8-DF082E21999E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B6887FF-A64D-44D5-A28F-61C0C2B34534}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B6887FF-A64D-44D5-A28F-61C0C2B34534}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2FDACBF1-E5D6-43A3-A621-E3701C5B9962}
+	EndGlobalSection
+EndGlobal

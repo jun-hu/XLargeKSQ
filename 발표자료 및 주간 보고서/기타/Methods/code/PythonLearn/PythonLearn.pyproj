@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>30ee7394-9518-478b-a4c8-84134b07ace8</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>randforest.py</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <Name>PythonLearn</Name>
+    <RootNamespace>PythonLearn</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="crawl.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="lgbm.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="lightgbm_1.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MLTest.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="neural.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="neural2.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="neuralExample.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="preprocess.py" />
+    <Compile Include="randforest.py" />
+    <Compile Include="tenserflow_learn.py" />
+    <Compile Include="analysis_sourcetab.py" />
+    <Compile Include="analysis.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PythonLearn.py" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <!-- Uncomment the CoreCompile target to enable the Build command in
+       Visual Studio and specify your pre- and post-build commands in
+       the BeforeBuild and AfterBuild targets below. -->
+  <!--<Target Name="CoreCompile" />-->
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
+</Project>

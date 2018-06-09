@@ -1,0 +1,38 @@
+\contentsline {paragraph}{Abstract.}{1}
+\contentsline {paragraph}{Keywords.}{1}
+\contentsline {paragraph}{Brief timetable of the project.}{1}
+\contentsline {section}{\numberline {1}Introduction}{3}
+\contentsline {subsection}{\numberline {1.1}Aim of the project}{3}
+\contentsline {subsection}{\numberline {1.2}Applications on business area}{3}
+\contentsline {section}{\numberline {2}Data analysis}{4}
+\contentsline {paragraph}{Categorical data.}{4}
+\contentsline {paragraph}{Multiple values.}{4}
+\contentsline {paragraph}{Incomplete member data.}{4}
+\contentsline {section}{\numberline {3}Neural network}{5}
+\contentsline {subsection}{\numberline {3.1}Categorical data preprocessing}{5}
+\contentsline {paragraph}{Binary feature.}{5}
+\contentsline {paragraph}{Dummy variables.}{5}
+\contentsline {paragraph}{Multiple Correspondence Analysis(MCA).}{5}
+\contentsline {paragraph}{Application.}{6}
+\contentsline {subsection}{\numberline {3.2}Data transformation and normalization}{6}
+\contentsline {paragraph}{Normalizer.}{6}
+\contentsline {paragraph}{Decayer.}{6}
+\contentsline {subsection}{\numberline {3.3}Network design}{6}
+\contentsline {subsection}{\numberline {3.4}Results}{7}
+\contentsline {subsection}{\numberline {3.5}Aggregation of multiple networks by voting}{8}
+\contentsline {section}{\numberline {4}Random forest}{8}
+\contentsline {subsection}{\numberline {4.1}Bagging}{8}
+\contentsline {subsection}{\numberline {4.2}Decision tree, as the underlying model}{9}
+\contentsline {subsection}{\numberline {4.3}Results}{9}
+\contentsline {section}{\numberline {5}Gradient boosting}{9}
+\contentsline {subsection}{\numberline {5.1}Data preprocessing and feature engineering}{9}
+\contentsline {subsection}{\numberline {5.2}Results}{10}
+\contentsline {section}{\numberline {6}Conclusion}{10}
+\contentsline {section}{Appendix \numberline {A}Weekly tasks of the project}{11}
+\contentsline {section}{Appendix \numberline {B}Work contribution}{11}
+\contentsline {section}{Appendix \numberline {C}Notes on project topic change}{11}
+\contentsline {paragraph}{Acknowledgement.}{12}
+\contentsline {paragraph}{On government-driven public open data system in Korea.}{13}
+\contentsline {subparagraph}{Access Control.}{13}
+\contentsline {subparagraph}{Cost of data sell.}{13}
+\contentsline {subparagraph}{Real-time update.}{13}

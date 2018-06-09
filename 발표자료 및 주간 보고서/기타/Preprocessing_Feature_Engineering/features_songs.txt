@@ -1,0 +1,11 @@
+total_listens : 전체 들은 건수
+total_relistens : 다시 들은 건수
+relisten_rate : 다시 들은 비율
+mean_age : 들은 사람들의 평균 나이
+mean_regdate : 들은 사람들의 평균 가입일
+mean_duration : 들은 사람들의 평균 가입기간
+mean_relisten_age : 다시 들은 사람들의 평균 나이
+mean_relisten_regdate : 다시 들은 사람들의 평균 가입일
+mean_relisten_duration : 다시 들은 사람들의 평균 가입기간
+gender_anticor : 성별에 따른 다시듣기 경향성
+                 (다시 들은 남성의 수+다시 듣지 않은 여성의 수)/(남성+여성)

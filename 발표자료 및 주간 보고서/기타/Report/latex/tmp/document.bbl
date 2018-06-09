@@ -1,0 +1,34 @@
+\begin{thebibliography}{1}
+
+\bibitem{WEBSITE:NNDataStandardize}
+J.~McCaffrey, ``How to standardize data for neural networks.''
+  https://visualstudiomagazine.com/articles/\\2014/01/01/how-to-standardize-data-for-neural-networks.aspx,
+  Jan 2014.
+\newblock Accessed on 2017-12-02.
+
+\bibitem{alpaydin1992multiple}
+E.~Alpaydin, ``Multiple neural networks and weighted voting,'' in {\em Pattern
+  Recognition, 1992. Vol. II. Conference B: Pattern Recognition Methodology and
+  Systems, Proceedings., 11th IAPR International Conference on}, pp.~29--32,
+  IEEE, 1992.
+
+\bibitem{WEBSITE:bvtradeoff}
+S.~Fortmann-roe, ``Understanding the bias-variance tradeoff.''
+  http://scott.fortmann-roe.com/docs/BiasVariance.html, Jun 2012.
+\newblock Accessed on 2017-12-10.
+
+\bibitem{ARTICLE:breiman2001random}
+L.~Breiman, ``Random forests,'' {\em Machine learning}, vol.~45, no.~1,
+  pp.~5--32, 2001.
+
+\bibitem{LECTURE:BaggingRF}
+R.~C. Steorts, ``Bagging and random forests.''
+  http://www2.stat.duke.edu/~rcs46/lectures\_2015/random-forest/slides\_lecture15.pdf,
+  Mar 2014.
+\newblock Accessed on 2017-12-01.
+
+\bibitem{MANUAL:LightGBMDoc}
+Microsoft Corporation, https://lightgbm.readthedocs.io/en/latest/, {\em
+  LightGBM's documentations}, 2017.
+
+\end{thebibliography}

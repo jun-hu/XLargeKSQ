@@ -1,0 +1,87 @@
+import tensorflow as tf
+import pandas as pd
+from sklearn.cross_validation import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
+# Random Forest Sample Code
+
+#### Load the data ####
+print('Loading data...')
+data_path = 'D:/musicData/'
+train = pd.read_csv(data_path + 'train.csv',skiprows=range(1, 5000001))
+test = pd.read_csv(data_path + 'test.csv')#,nrows=500000,skiprows=range(1, 7000001))
+songs = pd.read_csv(data_path + 'songs_new_normalized.csv')
+members = pd.read_csv(data_path + 'members.csv')
+print('Data preprocessing...')
+train = train.merge(songs, on='song_id', how='left').merge(members, on='msno', how='left')
+
+# Convert the three columns to analyze into strings
+train=train.drop(['msno','song_id'],axis=1)
+train['source_system_tab']=train['source_system_tab'].astype(str)
+train['source_screen_name']=train['source_screen_name'].astype(str)
+train['source_type']=train['source_type'].astype(str)
+train['target']=train['target'].astype(int)
+train['bd']=train['bd'].astype(int)
+#train['noage']=train['bd'].apply(lambda x: 0 if x>0 and x<80 else 1)
+train['bd']=train['bd'].apply(lambda x: x if x>0 and x<80 else 0)
+
+dsst=pd.get_dummies(train['source_system_tab'])
+dssn=pd.get_dummies(train['source_screen_name'])
+dst=pd.get_dummies(train['source_type'])
+dsst.columns = dsst.columns.map(lambda x: str(x) + '_sst')
+dssn.columns = dssn.columns.map(lambda x: str(x) + '_ssn')
+dst.columns = dst.columns.map(lambda x: str(x) + '_st')
+train=dsst.join(dssn).join(dst).join(train['target']).join(train['bd'])#.join(train['noage'])
+#print(train)
+
+'''
+# Phase 0-1: Joining song table
+test = test.merge(songs, on='song_id', how='left').merge(members, on='msno', how='left')
+ids = test['id'].values
+
+# Convert the three columns to analyze into strings
+test=test.drop(['msno','song_id'],axis=1)
+test['source_system_tab']=test['source_system_tab'].astype(str)
+test['source_screen_name']=test['source_screen_name'].astype(str)
+test['source_type']=test['source_type'].astype(str)
+test['bd']=test['bd'].astype(int)
+test['noage']=test['bd'].apply(lambda x: 0 if x>0 and x<80 else 1)
+test['bd']=test['bd'].apply(lambda x: x if x>0 and x<80 else 0)
+
+dsst=pd.get_dummies(test['source_system_tab'])
+dssn=pd.get_dummies(test['source_screen_name'])
+dst=pd.get_dummies(test['source_type'])
+dsst.columns = dsst.columns.map(lambda x: str(x) + '_sst')
+dssn.columns = dssn.columns.map(lambda x: str(x) + '_ssn')
+dst.columns = dst.columns.map(lambda x: str(x) + '_st')
+test=dsst.join(dssn).join(dst).join(test['bd']).join(test['noage'])
+#print(train)
+'''
+#### Split the data ####
+train, test = train_test_split(train, test_size=0.2) # 8:2 Random Split
+train_t = train['target']
+train=train.drop(['target'],axis=1)
+#test=test.drop(['People local_ssn', 'People global_ssn'],axis=1)#
+test_t = test['target']
+test=test.drop(['target'],axis=1)
+
+#### Using sklearn RandomForestClassifier ####
+clf = RandomForestClassifier(n_estimators=7, max_depth=8, random_state=0)
+print('Fitting data...')
+clf.fit(train, train_t)
+print(clf.feature_importances_)
+print('Evaluating data...')
+result=clf.predict(test)
+print(accuracy_score(result,test_t))
+
+'''
+# Phase 5: Prediction
+print('Making predictions and saving them...')
+p_test = clf.predict(test)
+
+subm = pd.DataFrame()
+subm['id'] = ids
+subm['target'] = p_test
+subm.to_csv('submissionRF.csv.gz', compression = 'gzip', index=False, float_format = '%.5f')
+print('Done!')
+'''
